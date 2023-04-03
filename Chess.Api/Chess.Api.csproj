@@ -16,7 +16,6 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.3" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.3" />
     </ItemGroup>
@@ -24,6 +23,9 @@
     <ItemGroup>
       <ProjectReference Include="..\Chess.Db\Chess.Db.csproj" />
       <ProjectReference Include="..\Chess.Share\Chess.Share.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <InternalsVisibleTo Include="Chess.Api.Tests" />
     </ItemGroup>
 
 </Project>
