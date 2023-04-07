@@ -13,7 +13,7 @@ public class AuthTests : BaseTests
     public async Task Register()
     {
         
-        var authResult = await Context.DefaultClient.Rait<AuthController>().Call(n => n.RegisterUser(new RegisterModel
+        var authResult = await Context.UserOneClient.Rait<AuthController>().Call(n => n.RegisterUser(new RegisterModel
         {
             Email = "e1ektr0.xyz@gmail.com",
             Password = "Password"
@@ -23,15 +23,33 @@ public class AuthTests : BaseTests
         var chessDbContext = Context.Services.GetRequiredService<ChessDbContext>();
         Assert.That(chessDbContext.Users.Count(), Is.Not.Zero);
         
-        Context.DefaultClient.DefaultRequestHeaders.Authorization =
+        Context.UserOneClient.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", authResult!.Token);
     }
+    
+    [Test]
+    public async Task RegisterUserTwo()
+    {
+        var authResult = await Context.UserTwoClient.Rait<AuthController>().Call(n => n.RegisterUser(new RegisterModel
+        {
+            Email = "nyka@gmail.com",
+            Password = "Password"
+        }));
+        
+        
+        var chessDbContext = Context.Services.GetRequiredService<ChessDbContext>();
+        Assert.That(chessDbContext.Users.Count(), Is.Not.Zero);
+        
+        Context.UserTwoClient.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", authResult!.Token);
+    }
+
     
     [Test]
     public async Task GetMe()
     {
         await Register();
-        var call = await Context.DefaultClient.Rait<AuthController>().Call(n => n.GetMe());
+        var call = await Context.UserOneClient.Rait<AuthController>().Call(n => n.GetMe());
 
         Assert.That(call, Is.Not.Null);
     }

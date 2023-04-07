@@ -10,7 +10,7 @@ public class ChessLobbyTest : BaseTests
     {
         await new AuthTests().Register();
 
-        var lobby = await Context.DefaultClient.Rait<LobbyController>().Call(n => n.CreateLobby());
+        var lobby = await Context.UserOneClient.Rait<LobbyController>().Call(n => n.CreateLobby());
 
         Assert.That(lobby, Is.Not.Null);
         Assert.That(Context.DbContext.Lobbies.ToList(), Is.Not.Empty);
@@ -20,15 +20,15 @@ public class ChessLobbyTest : BaseTests
     public async Task JoinLobby()
     {
         await CreateLobby();
+        await new AuthTests().RegisterUserTwo();
 
-        var lobbies = await Context.DefaultClient.Rait<LobbyController>().Call(n => n.Get());
+        var lobbies = await Context.UserTwoClient.Rait<LobbyController>().Call(n => n.Get());
         var lobby = lobbies!.First();
-        await Context.DefaultClient.Rait<LobbyController>().Call(n => n.Join(lobby.Id));
+        await Context.UserTwoClient.Rait<LobbyController>().Call(n => n.Join(lobby.Id));
 
         var dbLobby = Context.DbContext.Lobbies.First();
         await Context.DbContext.Entry(dbLobby).ReloadAsync();
         
         Assert.That(dbLobby.OpponentUserId, Is.Not.Null);
-
     }
 }

@@ -11,7 +11,8 @@ namespace Chess.Api.Tests;
 //1 user start game
 public static class Context
 {
-    public static HttpClient DefaultClient { get; set; } = null!;
+    public static HttpClient UserTwoClient { get; set; } = null!;
+    public static HttpClient UserOneClient { get; set; } = null!;
     public static IServiceProvider Services { get; set; } = null!;
     public static ChessDbContext DbContext { get; set; } = null!;
 }
@@ -25,7 +26,8 @@ public class BaseTests
     {
         _application = new WebApplicationFactory<Program>()
             .WithWebHostBuilder(_ => { PrepareEnv(_); });
-        Context.DefaultClient = _application.CreateDefaultClient();
+        Context.UserOneClient = _application.CreateDefaultClient();
+        Context.UserTwoClient = _application.CreateClient();
         Context.Services = _application.Services;
         Context.DbContext = Context.Services.GetRequiredService<ChessDbContext>();
     }
