@@ -22,7 +22,6 @@ public class ChessDbContextInitializer
         if(_globalConfig.ChessDbReset)
             await chessDbContext.Database.EnsureDeletedAsync();
         
-        await chessDbContext.Database.EnsureCreatedAsync();
         await chessDbContext.Database.MigrateAsync();
     }
 }

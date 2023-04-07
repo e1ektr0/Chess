@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Chess.Db.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chess.Db;
 
-public class ChessDbContext : DbContext
+public class ChessDbContext : IdentityDbContext<User>
 {
     private readonly bool _initialized;
 
