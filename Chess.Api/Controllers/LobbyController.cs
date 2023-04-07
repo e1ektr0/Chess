@@ -27,6 +27,14 @@ public class LobbyController : ControllerBase
         return await _dbContext.Lobbies.ToListAsync();
     }
 
+    [HttpGet]
+    [Authorize]
+    [Route("{lobbyId}")]
+    public async Task<Lobby?> Get([FromRoute] long lobbyId)
+    {
+        return await _dbContext.Lobbies.FirstOrDefaultAsync(n => n.Id == lobbyId);
+    }
+
     [HttpPost]
     [Authorize]
     public async Task<Lobby> CreateLobby()
@@ -40,6 +48,15 @@ public class LobbyController : ControllerBase
     public async Task<IActionResult> Join([FromRoute] long lobbyId)
     {
         await _lobbyService.JoinLobby(lobbyId, User.UserId());
+        return Ok();
+    }
+
+    [HttpPost]
+    [Authorize]
+    [Route("{lobbyId}/Start")]
+    public async Task<IActionResult> Start([FromRoute] long lobbyId)
+    {
+        await _lobbyService.StartLobby(lobbyId, User.UserId());
         return Ok();
     }
 }

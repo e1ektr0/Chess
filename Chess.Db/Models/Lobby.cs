@@ -21,4 +21,8 @@ public class Lobby
     [ForeignKey(nameof(OpponentUserId))]
     public User?  OpponentUser { get; set; }
 
+    public DateTime? StartTime { get; set; }
+    public string? Board { get; set; }
+    public string? ZeroUserId { get; set; }
+    public string? OneUserId { get; set; }
 }
