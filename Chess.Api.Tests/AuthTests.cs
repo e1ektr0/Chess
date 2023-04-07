@@ -12,17 +12,18 @@ public class AuthTests : BaseTests
     [Test]
     public async Task Register()
     {
-        var authResult = await DefaultClient.Rait<AuthController>().Call(n => n.RegisterUser(new RegisterModel
+        
+        var authResult = await Context.DefaultClient.Rait<AuthController>().Call(n => n.RegisterUser(new RegisterModel
         {
             Email = "e1ektr0.xyz@gmail.com",
             Password = "Password"
         }));
         
         
-        var chessDbContext = Services.GetRequiredService<ChessDbContext>();
+        var chessDbContext = Context.Services.GetRequiredService<ChessDbContext>();
         Assert.That(chessDbContext.Users.Count(), Is.Not.Zero);
         
-        DefaultClient.DefaultRequestHeaders.Authorization =
+        Context.DefaultClient.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", authResult!.Token);
     }
     
@@ -30,7 +31,7 @@ public class AuthTests : BaseTests
     public async Task GetMe()
     {
         await Register();
-        var call = await DefaultClient.Rait<AuthController>().Call(n => n.GetMe());
+        var call = await Context.DefaultClient.Rait<AuthController>().Call(n => n.GetMe());
 
         Assert.That(call, Is.Not.Null);
     }

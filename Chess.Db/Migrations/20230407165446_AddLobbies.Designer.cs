@@ -3,6 +3,7 @@ using System;
 using Chess.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Chess.Db.Migrations
 {
     [DbContext(typeof(ChessDbContext))]
-    partial class ChessDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230407165446_AddLobbies")]
+    partial class AddLobbies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,17 +37,9 @@ namespace Chess.Db.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("OpponentUserId")
-                        .HasColumnType("text");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CreatorUserId");
-
-                    b.HasIndex("OpponentUserId");
 
                     b.ToTable("Lobbies");
                 });
@@ -253,13 +248,7 @@ namespace Chess.Db.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Chess.Db.Models.User", "OpponentUser")
-                        .WithMany()
-                        .HasForeignKey("OpponentUserId");
-
                     b.Navigation("CreatorUser");
-
-                    b.Navigation("OpponentUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

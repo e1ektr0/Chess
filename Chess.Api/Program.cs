@@ -31,6 +31,8 @@ builder.Services.AddSingleton<ChessDbContextInitializer>();
 
 //services
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<JwtTokenService>();
+builder.Services.AddScoped<LobbyService>();
 
 //identity
 builder.Services.AddIdentity<User, IdentityRole>(o =>

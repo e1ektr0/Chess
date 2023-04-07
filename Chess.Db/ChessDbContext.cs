@@ -22,4 +22,7 @@ public class ChessDbContext : IdentityDbContext<User>
         if (!_initialized)
             optionsBuilder.UseNpgsql();
     }
+
+
+    public DbSet<Lobby> Lobbies { get; set; } = null!;
 }
