@@ -25,4 +25,6 @@ public class Lobby
     public string? Board { get; set; }
     public string? ZeroUserId { get; set; }
     public string? OneUserId { get; set; }
+    public int CurrentPlayer { get; set; }
+    public string? CurrentPlayerId { get; set; }
 }

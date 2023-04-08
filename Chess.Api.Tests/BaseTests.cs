@@ -15,6 +15,8 @@ public static class Context
     public static HttpClient UserOneClient { get; set; } = null!;
     public static IServiceProvider Services { get; set; } = null!;
     public static ChessDbContext DbContext { get; set; } = null!;
+    
+    
 }
 
 public class BaseTests

@@ -6,6 +6,7 @@ namespace Chess.Api.Tests;
 
 public class ChessLobbyTest : BaseTests
 {
+
     [Test]
     public async Task CreateLobby()
     {
@@ -33,7 +34,6 @@ public class ChessLobbyTest : BaseTests
         Assert.That(dbLobby.OpponentUserId, Is.Not.Null);
     }
     
-    
     [Test]
     public async Task StartGame()
     {
@@ -46,4 +46,5 @@ public class ChessLobbyTest : BaseTests
         Assert.That(lobby, Is.Not.Null);
         Assert.That(lobby!.Status, Is.EqualTo(LobbyStatus.InGame));
     }
+    
 }

@@ -1,3 +1,4 @@
+using Chess.Api.Models;
 using Chess.Db;
 using Chess.Db.Models;
 using Chess.Services;
@@ -57,6 +58,15 @@ public class LobbyController : ControllerBase
     public async Task<IActionResult> Start([FromRoute] long lobbyId)
     {
         await _lobbyService.StartLobby(lobbyId, User.UserId());
+        return Ok();
+    }
+
+    [HttpPost]
+    [Authorize]
+    [Route("{lobbyId}/Move")]
+    public async Task<IActionResult> Move(ChessGameMoveRequest request)
+    {
+        await _lobbyService.Move(User.UserId(), request.LobbyId, request.X0, request.X1, request.Y0, request.Y1);
         return Ok();
     }
 }
