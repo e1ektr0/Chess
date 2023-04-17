@@ -24,5 +24,6 @@ public class ChessDbContext : IdentityDbContext<User>
     }
 
 
+    public DbSet<UserBalance> UserBalances { get; set; } = null!;
     public DbSet<Lobby> Lobbies { get; set; } = null!;
 }

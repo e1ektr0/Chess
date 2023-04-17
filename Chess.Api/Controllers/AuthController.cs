@@ -34,4 +34,5 @@ public class AuthController : ControllerBase
             Token = token
         };
     }
+    
 }

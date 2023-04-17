@@ -25,6 +25,7 @@ public class AuthService
             Email = email,
             UserName = email
         };
+        
         var identityResult = await _userManager.CreateAsync(user, password);
         if (identityResult.Succeeded)
             return await _jwtTokenService.CreateTokenAsync(user);
